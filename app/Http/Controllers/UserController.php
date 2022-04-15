@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserCreatedRequest;
+use App\Http\Requests\UserUpdatedRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+
 
 class UserController extends Controller
 {
@@ -12,25 +15,21 @@ class UserController extends Controller
             ->get();
         return response()->json($users);
     }
-    public function create(Request $request) {
+    public function create(UserCreatedRequest $request) {
 
-        $validated = $request->validate([
-            'name' => ['required', 'min:3']
-        ]);
+        $validated = $request->validated();
 
         $user = User::query()
             ->create($validated);
 
-        return response()->json([$user]);
+        return response()->json($user);
     }
     public function show(User $user) {
         return response()->json($user);
     }
-    public function update(Request $request, User $user) {
+    public function update(UserUpdatedRequest $request, User $user) {
 
-        $validated = $request->validate([
-            'name' => ['required', 'min:3']
-        ]);
+        $validated = $request->validated();
 
         $user->update($validated);
 
