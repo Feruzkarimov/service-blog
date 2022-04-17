@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable =['id', 'name','user_id'];
+
+    public function user () {
+        return $this->belongsTo(User::class);
+    }
 }
