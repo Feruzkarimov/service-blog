@@ -25,7 +25,8 @@ class PostCreatedRequest extends FormRequest
     {
         return [
                 'name' => ['required', 'min:3'],
-                'user_id' => ['exist']
+                'user_id' => ['exist'],
+                'body' => ['required', 'min:100' ]
         ];
     }
 }

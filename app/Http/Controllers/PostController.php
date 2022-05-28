@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostCreatedRequest;
 use App\Http\Requests\PostUpdatedRequest;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -12,27 +13,31 @@ class PostController extends Controller
     public function index(Request $request) {
         $posts = Post::query()
             ->get();
-        return response()->json($posts);
+        return PostResource::collection($posts);
     }
+
     public function create(PostCreatedRequest $request) {
         $validated = $request->validated();
-
+        
         $post = Post::query()
             ->create($validated);
-        return response()->json($post);
-    }
 
+        return PostResource::make($post);
+    }
+    
     public function show(Post $post) {
 
-        return response()->json($post);
+        return PostResource::make($post);
     }
+
     public function update(PostUpdatedRequest $request, Post $post) {
         $validated = $request->validated();
 
         $post->update($validated);
 
-        return response()->json($post);
+        return PostResource::make($post);
     }
+
     public function delete(Post $post) {
         $post->delete();
 

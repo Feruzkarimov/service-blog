@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -30,4 +32,18 @@ Route::prefix('posts')->group(function() {
     Route::get('{post}', [PostController::class, 'show']);
     Route::put('{post}', [PostController::class, 'update']);
     Route::delete('{post}', [PostController::class, 'delete']);
+});
+
+Route::prefix('comments')->group(function() {
+    Route::get('/', [CommentController::class, 'index']);
+    Route::post('/', [CommentController::class, 'create']);
+    Route::get('{comment}', [CommentController::class, 'show']);
+    Route::put('{comment}', [CommentController::class, 'update']);
+    Route::delete('{comment}', [CommentController::class, 'delete']);
+});
+
+Route::prefix('images')->group(function() {
+    Route::get('/add-image', [ImageController::class, 'addImage']);
+    Route::post('/store-image', [ImageController::class, 'storeImage']);
+    Route::get('/view-image', [ImageController::class, 'viewImage']);
 });
