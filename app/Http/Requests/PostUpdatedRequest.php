@@ -25,7 +25,9 @@ class PostUpdatedRequest extends FormRequest
     {
         return [
             'name' => ['required', 'min:3'],
-            'user_id' => ['exist']
+            'user_id' => ['required'],
+            'body' => ['required', 'min:30' ],
+            'image' => ['required', 'file', 'image', 'mimes:jpg,jpeg,png', 'max:5000'],
         ];
     }
 }

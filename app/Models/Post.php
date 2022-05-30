@@ -10,9 +10,9 @@ class Post extends Model
     protected $fillable =[
         'id', 
         'name',
+        'image',
         'user_id',
         'body',
-        'cover'
     ];
 
     public function user () {
@@ -23,7 +23,4 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function Image () {
-        return $this->hasMany(Image::class);
-    }
 }

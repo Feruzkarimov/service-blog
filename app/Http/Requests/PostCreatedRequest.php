@@ -24,9 +24,10 @@ class PostCreatedRequest extends FormRequest
     public function rules()
     {
         return [
-                'name' => ['required', 'min:3'],
-                'user_id' => ['exist'],
-                'body' => ['required', 'min:100' ]
+                'name'    => ['required', 'min:3'],
+                'user_id' => ['required'],
+                'body'    => ['required', 'min:30' ],
+                'image'   => ['required', 'file', 'image', 'mimes:jpg,jpeg,png', 'max:5000'],
         ];
     }
 }

@@ -29,6 +29,7 @@ Route::prefix('users')->group(function() {
 Route::prefix('posts')->group(function() {
     Route::get('/', [PostController::class, 'index']);
     Route::post('/', [PostController::class, 'create']);
+    Route::post('/upload', [PostController::class, 'store']);
     Route::get('{post}', [PostController::class, 'show']);
     Route::put('{post}', [PostController::class, 'update']);
     Route::delete('{post}', [PostController::class, 'delete']);
@@ -42,8 +43,3 @@ Route::prefix('comments')->group(function() {
     Route::delete('{comment}', [CommentController::class, 'delete']);
 });
 
-Route::prefix('images')->group(function() {
-    Route::get('/add-image', [ImageController::class, 'addImage']);
-    Route::post('/store-image', [ImageController::class, 'storeImage']);
-    Route::get('/view-image', [ImageController::class, 'viewImage']);
-});
