@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostCreatedRequest;
 use App\Http\Requests\PostUpdatedRequest;
 use App\Http\Resources\PostResource;
+use Illuminate\Support\Str;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -17,18 +18,22 @@ class PostController extends Controller
     }
 
     public function create(PostCreatedRequest $request) {
-
         $validated = $request->validated();
 
         $image = $request->file('image');
 
-        
+        $path = $image->storePubliclyAs("images", Str::uuid() . "." . $image->extension());
+
+        \abort_if(!$path, 400, "File couldn't be uploaded!");
+
+        $validated["image"] = "/" . $path;
+
         $post = Post::query()
             ->create($validated);
 
         return PostResource::make($post);
     }
-    
+
     public function store(Request $request)
     {
 
