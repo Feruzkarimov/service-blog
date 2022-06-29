@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use Faker\Factory;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
@@ -32,7 +33,7 @@ class CreateUserCommand extends Command
         $count = $this->option('count');
 
         for ($i=1; $i <= $count; $i++) {
-            $name = Str::random(length: 8);
+            $name = Factory::create()->name;
             User::create([
                 'name' => $name,
             ]);
