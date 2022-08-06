@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserCreatedRequest;
 use App\Models\User;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\UnauthorizedException;
 
@@ -14,7 +15,8 @@ class AuthController extends Controller
     {
         $validated = $request->validated();
         
-        $user = User::create($validated);
+        $user = new User($validated);
+        $user->save();
 
         return $this->createToken($user);
     }

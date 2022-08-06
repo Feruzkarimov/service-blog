@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,9 +15,12 @@ class User extends Authenticatable
         'password'
     ];
     
-    public function setPasswordAttribute($password)
+    protected function password(): Attribute
     {
-        $this->password = Hash::make($password);
+        return Attribute::make(
+            get: fn ($value) => $value,
+            set: fn ($value) => Hash::make($value)
+        );
     }
 
     public function checkPassword($password)
